@@ -103,7 +103,7 @@ export default {
         to: '/maps',
         icon: 'mdi-map-marker',
         text: 'Maps'
-      },
+      }
       // {
       //   to: '/notifications',
       //   icon: 'mdi-bell',

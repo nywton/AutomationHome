@@ -6,24 +6,24 @@
   >
     <v-layout wrap>
       <v-snackbar
-              color="#9c27b0"
-              :bottom="bottom"
-              :top="top"
-              :left="left"
-              :right="right"
-              v-model="snackbar"
-              dark
+        :bottom="bottom"
+        :top="top"
+        :left="left"
+        :right="right"
+        v-model="snackbar"
+        color="#9c27b0"
+        dark
       >
         <v-icon
-                color="white"
-                class="mr-3"
+          color="white"
+          class="mr-3"
         >
           mdi-alert-circle-outline
         </v-icon>
         <div>Um ítem foi atualizado.</div>
         <v-icon
-                size="16"
-                @click="snackbar = false"
+          size="16"
+          @click="snackbar = false"
         >
           mdi-close-circle
         </v-icon>
@@ -35,10 +35,10 @@
         lg6
       >
         <material-stats-card
+          :value="projects.length"
           color="green"
           icon="mdi-store"
           title="Dispositivos"
-          :value="projects.length"
           sub-icon="mdi-access-point"
           sub-text="Online"
         />
@@ -86,15 +86,18 @@
               slot="items"
               slot-scope="{ index, item }"
             >
-              <td><img :src="statusIcon(item)" alt="" width="45"></td>
+              <td><img
+                :src="statusIcon(item)"
+                alt=""
+                width="45"></td>
               <td>{{ item.name }}</td>
               <td>
                 <v-switch
-                        v-model="item.isON"
-                        color="orange"
-                        hide-details
-                        @change="toggle(item)"
-                ></v-switch>
+                  v-model="item.isON"
+                  color="orange"
+                  hide-details
+                  @change="toggle(item)"
+                />
               </td>
             </template>
           </v-data-table>
@@ -108,31 +111,6 @@
 <script>
 import { firestore } from '../plugins/firebase'
 export default {
-  mounted () {
-    this.$binding("projects", firestore.collection("projects"))
-            .then((projects) => {
-              this.projects = projects
-              console.log(projects)
-            })
-  },
-  methods: {
-    toggle(project) {
-      firestore.collection('projects')
-              .doc(project['.key'])
-              .update({
-                isON: project.isON
-              })
-              .then((item) => {
-                this.snackbar = true
-              })
-    },
-    showSnack() {
-
-    },
-    statusIcon(project) {
-      return project.isON ? './img/lamp-on.svg' : './img/lamp-off.svg'
-    }
-  },
   data () {
     return {
       projects: [],
@@ -153,7 +131,7 @@ export default {
         {
           sortable: false,
           text: 'Switch',
-          value: 'state',
+          value: 'state'
         }
       ],
       tabs: 0,
@@ -166,6 +144,31 @@ export default {
         1: false,
         2: false
       }
+    }
+  },
+  mounted () {
+    this.$binding('projects', firestore.collection('projects'))
+      .then((projects) => {
+        this.projects = projects
+        console.log(projects)
+      })
+  },
+  methods: {
+    toggle (project) {
+      firestore.collection('projects')
+        .doc(project['.key'])
+        .update({
+          isON: project.isON
+        })
+        .then((item) => {
+          this.snackbar = true
+        })
+    },
+    showSnack () {
+
+    },
+    statusIcon (project) {
+      return project.isON ? './img/lamp-on.svg' : './img/lamp-off.svg'
     }
   }
 }

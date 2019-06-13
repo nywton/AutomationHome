@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "node app.js",
     "dev": "npm run serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "chartist": "0.11.0",
@@ -27,6 +29,7 @@
     "@vue/eslint-config-standard": "^3.0.1",
     "axios": "^0.17.1",
     "material-design-icons-iconfont": "^3.0.3",
+    "push-dir": "^0.4.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-analytics": "^5.8.0",
